@@ -46,7 +46,7 @@ public class SingleThreadDownloader implements Downloader {
         writer.write(lineSeparator);
         if (body.getNextChapterUrl() != null) {
           log.debug("下一章节地址[{}]", body.getNextChapterUrl());
-          body = NovelFactory.getChapterBodyInstance(body.getNextChapterUrl(), body);
+          body = NovelFactory.getChapterBodyInstance(body.getNextChapterUrl());
         } else {
           body = null;
         }

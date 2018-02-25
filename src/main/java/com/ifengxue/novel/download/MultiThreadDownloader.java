@@ -140,7 +140,7 @@ public class MultiThreadDownloader implements Downloader {
             if (itr.hasNext()) {
               chapter = itr.next();
               log.debug("下一章节地址[{}]", chapter.getUrl());
-              body = NovelFactory.getChapterBodyInstance(chapter.getUrl(), body);
+              body = NovelFactory.getChapterBodyInstance(chapter.getUrl());
             } else {
               body = null;
             }
