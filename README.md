@@ -18,16 +18,16 @@ downloader = MultiThreadDownloader.newFixedTaskCountDownloader(Executors.newCach
 ### 支持哪些小说网站？
 - [顶点小说](http://www.booktxt.net)
 ### 如何支持更多的小说网站？
-1. 实现[Novel](tree/master/src/main/java/com/ifengxue/novel/Novel.java)接口
-> 可参考[顶点小说](tree/master/src/main/java/com/ifengxue/novel/BookTxtNovel.java)实现
+1. 实现[Novel](src/main/java/com/ifengxue/novel/Novel.java)接口
+> 可参考[顶点小说](src/main/java/com/ifengxue/novel/BookTxtNovel.java)实现
 
-2. 实现[Chapter](tree/master/src/main/java/com/ifengxue/novel/chapter/Chapter.java)接口
-> 可参考[顶点小说](tree/master/src/main/java/com/ifengxue/novel/chapter/BookTxtChapter.java)实现
+2. 实现[Chapter](src/main/java/com/ifengxue/novel/chapter/Chapter.java)接口
+> 可参考[顶点小说](src/main/java/com/ifengxue/novel/chapter/BookTxtChapter.java)实现
 
-3. 实现[ChapterBody](tree/master/src/main/java/com/ifengxue/novel/chapter/ChapterBody.java)接口
-> 可参考[顶点小说](tree/master/src/main/java/com/ifengxue/novel/chapter/BookTxtChapterBody.java)实现
+3. 实现[ChapterBody](src/main/java/com/ifengxue/novel/chapter/ChapterBody.java)接口
+> 可参考[顶点小说](src/main/java/com/ifengxue/novel/chapter/BookTxtChapterBody.java)实现
 
-4. 注册到工厂[NovelFactory](tree/master/src/main/java/com/ifengxue/novel/NovelFactory.java)
+4. 注册到工厂[NovelFactory](src/main/java/com/ifengxue/novel/NovelFactory.java)
 ```java
 NovelFactory.register("www.booktxt.net", BookTxtNovel.class, BookTxtChapterBody.class);
 NovelFactory.register("www.example.com", ExampleNovel.class, ExampleChapterBody.class);
