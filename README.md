@@ -17,6 +17,7 @@ downloader = MultiThreadDownloader.newFixedTaskCountDownloader(Executors.newCach
 ```
 ### 支持哪些小说网站？
 - [顶点小说](http://www.booktxt.net)
+- [笔趣阁](http://www.biquge.com.tw)
 ### 如何支持更多的小说网站？
 1. 实现[Novel](src/main/java/com/ifengxue/novel/Novel.java)接口
 > 可参考[顶点小说](src/main/java/com/ifengxue/novel/BookTxtNovel.java)实现

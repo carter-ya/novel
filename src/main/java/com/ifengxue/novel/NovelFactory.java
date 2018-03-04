@@ -1,5 +1,6 @@
 package com.ifengxue.novel;
 
+import com.ifengxue.novel.chapter.BiqugeChapterBody;
 import com.ifengxue.novel.chapter.BookTxtChapterBody;
 import com.ifengxue.novel.chapter.ChapterBody;
 import java.lang.reflect.Constructor;
@@ -18,7 +19,8 @@ public class NovelFactory {
   private static final Map<String, Constructor<? extends ChapterBody>> CHAPTER_BODY_CONSTRUCTOR_MAP = new HashMap<>();
 
   static {
-    register("www.booktxt.net", BookTxtNovel.class, BookTxtChapterBody.class);
+    register("www.booktxt.net", BookTxtNovel.class, BookTxtChapterBody.class);// 顶点小说
+    register("www.biquge.com.tw", BiqugeNovel.class, BiqugeChapterBody.class);// 笔趣阁
   }
 
   /**
