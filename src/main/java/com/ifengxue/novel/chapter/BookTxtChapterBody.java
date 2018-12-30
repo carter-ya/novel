@@ -97,7 +97,8 @@ public class BookTxtChapterBody implements ChapterBody {
           .text()
           .replace(SPACE_TAG, " ")
           .replace(LINE_BREAK_TAG, NovelConfiguration.getInstance().getLineSeparator());// 章节正文节点
-      chapterListUrl = doc.select(".con_top a").get(2).absUrl("href");// 章节地址列表URL
+      Elements conTopAElements = doc.select(".con_top a");
+      chapterListUrl = conTopAElements.get(conTopAElements.size() - 1).absUrl("href");// 章节地址列表URL
 
       chapter = new BookTxtChapter();
       chapter.setUrl(chapterUrl);
