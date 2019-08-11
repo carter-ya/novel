@@ -101,7 +101,12 @@ public class BookTxtNovel implements Novel {
       String lastModifyTimeText = pEles.get(2).text();
       lastModifyTimeText = lastModifyTimeText.substring(lastModifyTimeText.indexOf("：") + 1);// 最后修改时间
       lastModifyTime = parseDateTime(lastModifyTimeText);
-      summary = doc.select("#intro p").first().text();
+      Element introEle = doc.getElementById("intro");
+      if (introEle.selectFirst("p") != null) {
+        summary = introEle.selectFirst("p").text();
+      } else {
+        summary = introEle.text();
+      }
       //TODO 封面图片由脚本加载
 //      coverImageUrl = Optional.ofNullable(doc.select("#fmimg img").first()).map(img -> img.absUrl("src"))
 //          .orElse(null);// 封面图片URL
