@@ -28,7 +28,7 @@ import org.jsoup.select.Elements;
 @Data
 public class BiqugeNovel implements Novel {
 
-  public static final String HTML_ENCODING = "GBK";
+  public static final String HTML_ENCODING = "UTF-8";
   private final String chapterListUrl;
   private String title;
   private String author;

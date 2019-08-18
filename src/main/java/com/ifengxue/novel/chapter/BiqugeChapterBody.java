@@ -1,7 +1,6 @@
 package com.ifengxue.novel.chapter;
 
 import com.ifengxue.novel.BiqugeNovel;
-import com.ifengxue.novel.BookTxtNovel;
 import com.ifengxue.novel.Novel;
 import com.ifengxue.novel.NovelConfiguration;
 import com.ifengxue.novel.NovelExeception;
@@ -40,7 +39,7 @@ public class BiqugeChapterBody implements ChapterBody {
   private void openChapterBody() {
     NovelConfiguration configuration = NovelConfiguration.getInstance();
     try (CloseableHttpResponse response = configuration.getHttpClient().execute(new HttpGet(chapterUrl))) {
-      String html = EntityUtils.toString(response.getEntity(), BookTxtNovel.HTML_ENCODING);
+      String html = EntityUtils.toString(response.getEntity(), BiqugeNovel.HTML_ENCODING);
       html = html.replace("&nbsp;&nbsp;", SPACE_TAG)// 替换为空格
           .replace("<br />", LINE_BREAK_TAG);// 替换为换行
       Document doc = Jsoup.parse(html, chapterUrl);

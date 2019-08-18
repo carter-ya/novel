@@ -23,8 +23,8 @@ public class MultiThreadDownloaderTest {
   @Test
   public void download() throws InterruptedException {
     Downloader downloader = MultiThreadDownloader.newFixedThreadCountDownloader(threadPool, fixedThreadCount);
-    String path = "out/极品医圣.txt";
-    downloader.download("https://www.hytd.com/43/43859/", path);
+    String path = "out/九阳至尊.txt";
+    downloader.download("https://www.xbiquge6.com/81_81068/", path);
     waitFinish(path);
   }
 
