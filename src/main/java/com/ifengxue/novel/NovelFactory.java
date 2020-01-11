@@ -21,7 +21,7 @@ public class NovelFactory {
 
   static {
     register("www.booktxt.net", BookTxtNovel.class, BookTxtChapterBody.class);// 顶点小说
-    register("www.hytd.com", HytdNovel.class, HytdChapterBody.class);// 黄易天地
+    register("www.xhytd.com", HytdNovel.class, HytdChapterBody.class);// 黄易天地
     register("www.biquge.com.tw", BiqugeNovel.class, BiqugeChapterBody.class);// 笔趣阁
     register("www.xbiquge6.com", BiqugeNovel.class, BiqugeChapterBody.class);// 笔趣阁
   }
