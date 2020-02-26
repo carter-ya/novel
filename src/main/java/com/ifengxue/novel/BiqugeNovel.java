@@ -3,6 +3,8 @@ package com.ifengxue.novel;
 import com.ifengxue.novel.chapter.BiqugeChapter;
 import com.ifengxue.novel.chapter.Chapter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -28,7 +30,6 @@ import org.jsoup.select.Elements;
 @Data
 public class BiqugeNovel implements Novel {
 
-  public static final String HTML_ENCODING = "UTF-8";
   private final String chapterListUrl;
   private String title;
   private String author;
@@ -83,10 +84,15 @@ public class BiqugeNovel implements Novel {
     return chapters;
   }
 
+  @Override
+  public Charset getCharset() {
+    return StandardCharsets.UTF_8;
+  }
+
   private void openBiquge() {
     try (CloseableHttpResponse response = NovelConfiguration.getInstance().getHttpClient()
         .execute(new HttpGet(chapterListUrl))) {
-      Document doc = Jsoup.parse(EntityUtils.toString(response.getEntity(), HTML_ENCODING), chapterListUrl);
+      Document doc = Jsoup.parse(EntityUtils.toString(response.getEntity(), getCharset()), chapterListUrl);
 
       Element listEle = Optional.ofNullable(doc.getElementById("list"))
           .orElseThrow(() -> new NovelExeception("抓取" + chapterListUrl + "失败，没有匹配#list的节点"));

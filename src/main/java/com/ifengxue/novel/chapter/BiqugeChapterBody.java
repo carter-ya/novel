@@ -5,6 +5,8 @@ import com.ifengxue.novel.Novel;
 import com.ifengxue.novel.NovelConfiguration;
 import com.ifengxue.novel.NovelExeception;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import lombok.Data;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -39,7 +41,7 @@ public class BiqugeChapterBody implements ChapterBody {
   private void openChapterBody() {
     NovelConfiguration configuration = NovelConfiguration.getInstance();
     try (CloseableHttpResponse response = configuration.getHttpClient().execute(new HttpGet(chapterUrl))) {
-      String html = EntityUtils.toString(response.getEntity(), BiqugeNovel.HTML_ENCODING);
+      String html = EntityUtils.toString(response.getEntity(), getCharset());
       html = html.replace("&nbsp;&nbsp;", SPACE_TAG)// 替换为空格
           .replace("<br />", LINE_BREAK_TAG);// 替换为换行
       Document doc = Jsoup.parse(html, chapterUrl);
@@ -97,5 +99,10 @@ public class BiqugeChapterBody implements ChapterBody {
   @Override
   public String getChapterBodyText() {
     return chapterBody;
+  }
+
+  @Override
+  public Charset getCharset() {
+    return StandardCharsets.UTF_8;
   }
 }

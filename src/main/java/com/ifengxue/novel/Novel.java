@@ -1,6 +1,7 @@
 package com.ifengxue.novel;
 
 import com.ifengxue.novel.chapter.Chapter;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -60,4 +61,9 @@ public interface Novel {
    * 获取章节列表
    */
   List<Chapter> getChapters();
+
+  /**
+   * 获取网页编码
+   */
+  Charset getCharset();
 }

@@ -1,5 +1,7 @@
 package com.ifengxue.novel;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import lombok.experimental.Delegate;
 
 /**
@@ -7,10 +9,20 @@ import lombok.experimental.Delegate;
  */
 public class HytdNovel implements Novel {
 
-  @Delegate
+  @Delegate(excludes = Exclude.class)
   private BookTxtNovel bookTxtNovel;
 
   public HytdNovel(String chapterListUr) {
-    bookTxtNovel = new BookTxtNovel(chapterListUr);
+    bookTxtNovel = new BookTxtNovel(chapterListUr, getCharset());
+  }
+
+  @Override
+  public Charset getCharset() {
+    return StandardCharsets.UTF_8;
+  }
+
+  interface Exclude {
+
+    Charset getCharset();
   }
 }

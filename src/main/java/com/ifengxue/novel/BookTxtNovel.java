@@ -3,6 +3,7 @@ package com.ifengxue.novel;
 import com.ifengxue.novel.chapter.BookTxtChapter;
 import com.ifengxue.novel.chapter.Chapter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
@@ -26,10 +27,6 @@ import org.jsoup.select.Elements;
 @Data
 public class BookTxtNovel implements Novel {
 
-  /**
-   * 编码
-   */
-  public static final String HTML_ENCODING = "GBK";
   private final String chapterListUrl;
   private String title;
   private String author;
@@ -38,12 +35,22 @@ public class BookTxtNovel implements Novel {
   private String coverImageUrl;
   private int chapterCount;
   private List<Chapter> chapters;
+  private Charset charset = Charset.forName("GBK");
 
   /**
    * @param chapterListUrl 章节列表链接
    */
   public BookTxtNovel(String chapterListUrl) {
     this.chapterListUrl = chapterListUrl;
+    openBookTxt();
+  }
+
+  /**
+   * @param chapterListUrl 章节列表链接
+   */
+  public BookTxtNovel(String chapterListUrl, Charset charset) {
+    this.chapterListUrl = chapterListUrl;
+    this.charset = charset;
     openBookTxt();
   }
 
@@ -87,10 +94,15 @@ public class BookTxtNovel implements Novel {
     return chapters;
   }
 
+  @Override
+  public Charset getCharset() {
+    return charset;
+  }
+
   private void openBookTxt() {
     CloseableHttpClient httpClient = NovelConfiguration.getInstance().getHttpClient();
     try (CloseableHttpResponse response = httpClient.execute(new HttpGet(chapterListUrl))) {
-      Document doc = Jsoup.parse(EntityUtils.toString(response.getEntity(), HTML_ENCODING), chapterListUrl);
+      Document doc = Jsoup.parse(EntityUtils.toString(response.getEntity(), getCharset()), chapterListUrl);
       Element listEle = Optional.ofNullable(doc.getElementById("list"))
           .orElseThrow(() -> new NovelExeception("抓取" + chapterListUrl + "失败，没有匹配#list的节点"));
 

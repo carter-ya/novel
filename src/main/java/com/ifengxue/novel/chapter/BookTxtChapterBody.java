@@ -5,7 +5,9 @@ import com.ifengxue.novel.Novel;
 import com.ifengxue.novel.NovelConfiguration;
 import com.ifengxue.novel.NovelExeception;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Optional;
+import lombok.Setter;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -29,12 +31,23 @@ public class BookTxtChapterBody implements ChapterBody {
   private BookTxtChapter chapter;
   private String prevChapterUrl;
   private String nextChapterUrl;
+  @Setter
+  private Charset charset = Charset.forName("GBK");
 
   /**
    * @param chapterUrl 顶点小说章节正文地址
    */
   public BookTxtChapterBody(String chapterUrl) {
     this.chapterUrl = chapterUrl;
+    openChapterBody();
+  }
+
+  /**
+   * @param chapterUrl 顶点小说章节正文地址
+   */
+  public BookTxtChapterBody(String chapterUrl, Charset charset) {
+    this.chapterUrl = chapterUrl;
+    this.charset = charset;
     openChapterBody();
   }
 
@@ -72,6 +85,15 @@ public class BookTxtChapterBody implements ChapterBody {
   }
 
   @Override
+  public Charset getCharset() {
+    return charset;
+  }
+
+  public void setCharset(Charset charset) {
+    this.charset = charset;
+  }
+
+  @Override
   public String toString() {
     return "BookTxtChapterBody{" +
         "chapterUrl='" + chapterUrl + '\'' +
@@ -88,7 +110,7 @@ public class BookTxtChapterBody implements ChapterBody {
   private void openChapterBody() {
     CloseableHttpClient httpClient = NovelConfiguration.getInstance().getHttpClient();
     try (CloseableHttpResponse response = httpClient.execute(new HttpGet(chapterUrl))) {
-      String html = EntityUtils.toString(response.getEntity(), BookTxtNovel.HTML_ENCODING);
+      String html = EntityUtils.toString(response.getEntity(), getCharset());
       html = html.replace("&nbsp;&nbsp;", SPACE_TAG)// 替换为空格
           .replace("<br />", LINE_BREAK_TAG);// 替换为换行
       Document doc = Jsoup.parse(html, chapterUrl);

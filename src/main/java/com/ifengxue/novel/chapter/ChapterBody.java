@@ -1,6 +1,7 @@
 package com.ifengxue.novel.chapter;
 
 import com.ifengxue.novel.Novel;
+import java.nio.charset.Charset;
 
 /**
  * 章节正文
@@ -47,4 +48,9 @@ public interface ChapterBody {
    * 获取章节正文
    */
   String getChapterBodyText();
+
+  /**
+   * 获取网页编码
+   */
+  Charset getCharset();
 }

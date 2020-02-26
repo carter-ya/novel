@@ -1,5 +1,7 @@
 package com.ifengxue.novel.chapter;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import lombok.experimental.Delegate;
 
 public class HytdChapterBody implements ChapterBody {
@@ -10,7 +12,7 @@ public class HytdChapterBody implements ChapterBody {
   private String chapterBodyText;
 
   public HytdChapterBody(String chapterUrl) {
-    bookTxtChapterBody = new BookTxtChapterBody(chapterUrl);
+    bookTxtChapterBody = new BookTxtChapterBody(chapterUrl, getCharset());
     chapterBodyText = bookTxtChapterBody.getChapterBodyText().replaceAll("\\s*.*记住本站地址：\\[.*]\\s*.*无广告！", "");
     chapter = new HytdChapter();
     chapter.setUrl(chapterUrl);
@@ -27,6 +29,11 @@ public class HytdChapterBody implements ChapterBody {
     return chapterBodyText;
   }
 
+  @Override
+  public Charset getCharset() {
+    return StandardCharsets.UTF_8;
+  }
+
   private interface ExcludeDelegateMethods {
 
     @SuppressWarnings("unused")
@@ -34,5 +41,8 @@ public class HytdChapterBody implements ChapterBody {
 
     @SuppressWarnings("unused")
     Chapter getChapter();
+
+    @SuppressWarnings("unused")
+    Charset getCharset();
   }
 }
