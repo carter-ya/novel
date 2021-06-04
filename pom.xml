@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <lombok.version>1.18.10</lombok.version>
-    <httpclient.version>4.5.3</httpclient.version>
+    <httpclient.version>4.5.13</httpclient.version>
     <slf4j.version>1.7.25</slf4j.version>
     <jsoup.version>1.11.2</jsoup.version>
   </properties>
